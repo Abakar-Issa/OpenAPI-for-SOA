@@ -1,0 +1,3307 @@
+openapi: 3.0.2
+info:
+  title: DCAT specification for open science
+  version: 1.0.0
+  x-logo:
+    url: images/logo
+servers:
+- url: ""
+tags:
+- name: Datasets
+  x-displayName: Datasets
+- name: Catalogues
+  x-displayName: Catalogues
+- name: DataServices
+  x-displayName: DataServices
+- name: Vocabularies
+  x-displayName: Vocabularies
+- name: Distribution
+  x-displayName: Distribution
+- name: Resource
+  x-displayName: Resource
+paths:
+  /resource:
+    post:
+      tags:
+      - Resource
+      summary: Create a resource
+      description: Create a resource
+      operationId: createResource
+      parameters:
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        required: true
+      responses:
+        "201":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /resource/{id}:
+    get:
+      tags:
+      - Resource
+      summary: Get a resource
+      description: Get a resource
+      operationId: readResource
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Resource
+      summary: Create or Update a resource
+      description: Create or Update a resource
+      operationId: createOrUpdateResource
+      parameters:
+      - name: id
+        in: path
+        description: Id of the created or updated Ressource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        required: true
+      responses:
+        "200":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Resource
+      summary: Delete a resource
+      description: Delete a resource
+      operationId: deleteResource
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      responses:
+        "200":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Resource
+      summary: Modify a resource
+      description: Modify a resource
+      operationId: modifyResource
+      parameters:
+      - name: id
+        in: path
+        description: Id of the modified resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        required: true
+      responses:
+        "200":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /resource/{signature}:
+    get:
+      tags:
+      - Resource
+      summary: Get a resource by signature
+      description: Get a resource by signature
+      operationId: readResourceBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: signature of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Resource
+      summary: Create or Update a resource
+      description: Create or Update a resource by signature
+      operationId: createOrUpdateResourceBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: Id of the created or updated resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        required: true
+      responses:
+        "200":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Resource response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /datasets:
+    get:
+      tags:
+      - Datasets
+      summary: List datasets
+      description: List datasets of a catalogue
+      operationId: listDatasets
+      parameters:
+      - name: catalogue
+        in: query
+        description: Catalogue to which the datasets belong.
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: alias
+        in: query
+        description: "Alias, default 'read'"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    post:
+      tags:
+      - Datasets
+      summary: Create a dataset
+      description: Create a dataset
+      operationId: createDataset
+      parameters:
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dataset'
+        required: true
+      responses:
+        "201":
+          description: Dataset response ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /datasets/{id}:
+    get:
+      tags:
+      - Datasets
+      summary: Get a dataset
+      description: Get a dataset
+      operationId: readDataset
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested dataset
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Datasets
+      summary: Create or Update a dataset
+      description: Create or Update a dataset
+      operationId: createOrUpdateDataset
+      parameters:
+      - name: id
+        in: path
+        description: Id of the created or updated dataset
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dataset'
+        required: true
+      responses:
+        "200":
+          description: Dataset response ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Dataset response ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Datasets
+      summary: Delete a dataset
+      description: Delete a dataset
+      operationId: deleteDataset
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested dataset
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      responses:
+        "200":
+          description: Dataset response ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Datasets
+      summary: Modify a dataset
+      description: Modify a dataset
+      operationId: modifyDataset
+      parameters:
+      - name: id
+        in: path
+        description: Id of the modified dataset
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dataset'
+        required: true
+      responses:
+        "200":
+          description: Dataset response ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /datasets/{id}/{revision}:
+    get:
+      tags:
+      - Datasets
+      summary: Get a specific dataset version
+      description: Get a specific dataset version
+      operationId: readDatasetRevision
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested dataset
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: revision
+        in: path
+        description: Id of the requested dataset version
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+  /bulk/datasets:
+    put:
+      tags:
+      - Datasets
+      summary: Bulk-create/update of datasets
+      description: "Bulk-create/update of datasets, this operation is not atomic"
+      operationId: createOrUpdateDatasetBulk
+      parameters:
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetArray'
+        required: true
+      responses:
+        "200":
+          description: Dataset response bulk
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    post:
+      tags:
+      - Datasets
+      summary: Bulk-create of datasets
+      description: "Bulk-create of datasets, this operation is not atomic"
+      operationId: createDatasetBulk
+      parameters:
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetArray'
+        required: true
+      responses:
+        "200":
+          description: Dataset response bulk
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /distributions:
+    get:
+      tags:
+      - Distribution
+      summary: List distributions
+      description: List distributions
+      operationId: listDistributions
+      parameters:
+      - name: alias
+        in: query
+        description: "Alias, default 'read'"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    post:
+      tags:
+      - Distribution
+      summary: Create a distribution
+      description: Create a distribution
+      operationId: createDistribution
+      parameters:
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Distribution'
+        required: true
+      responses:
+        "201":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /catalogues:
+    get:
+      tags:
+      - Catalogues
+      summary: List catalogues
+      description: List catalogues
+      operationId: listCatalogues
+      parameters:
+      - name: alias
+        in: query
+        description: "Alias, default 'read'"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    post:
+      tags:
+      - Catalogues
+      summary: Create a catalogue
+      description: Create a catalogue
+      operationId: createCatalogue
+      parameters:
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Catalogue'
+        required: true
+      responses:
+        "201":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /distributions/{id}:
+    get:
+      tags:
+      - Distribution
+      summary: Get a distribution
+      description: Get a distribution
+      operationId: readDistribution
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Distribution
+      summary: Create or Update a distribution
+      description: Create or Update a distribution
+      operationId: createOrUpdateDistribution
+      parameters:
+      - name: id
+        in: path
+        description: Id of the created or updated distribution
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Distribution'
+        required: true
+      responses:
+        "200":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Distribution
+      summary: Delete a distribution
+      description: Delete a distribution
+      operationId: deleteDistgribution
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested distribution
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Distribution
+      summary: Modify a distribution
+      description: Modify a distribution
+      operationId: modifyDistribution
+      parameters:
+      - name: id
+        in: path
+        description: Id of the modified Distribution
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Distribution'
+        required: true
+      responses:
+        "200":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /distributions/{signature}:
+    get:
+      tags:
+      - Distribution
+      summary: Get a distribution by signature
+      description: Get a distribution by signature
+      operationId: readDistributionBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: signature of the requested catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Distribution
+      summary: Create or Update a distribution
+      description: Create or Update a distribution by signature
+      operationId: createOrUpdateDistributionBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: Id of the created or updated distribution
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Distribution'
+        required: true
+      responses:
+        "200":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Distribution response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /catalogues/{id}:
+    get:
+      tags:
+      - Catalogues
+      summary: Get a catalogue
+      description: Get a catalogue
+      operationId: readCatalogue
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Catalogues
+      summary: Create or Update a catalogue
+      description: Create or Update a catalogue
+      operationId: createOrUpdateCatalogue
+      parameters:
+      - name: id
+        in: path
+        description: Id of the created or updated catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Catalogue'
+        required: true
+      responses:
+        "200":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Catalogues
+      summary: Delete a catalogue
+      description: Delete a catalogue
+      operationId: deleteCatalogue
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Catalogues
+      summary: Modify a catalogue
+      description: Modify a catalogue
+      operationId: modifyCatalogue
+      parameters:
+      - name: id
+        in: path
+        description: Id of the modified catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Catalogue'
+        required: true
+      responses:
+        "200":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /catalogues/{signature}:
+    get:
+      tags:
+      - Catalogues
+      summary: Get a catalogue by signature
+      description: Get a catalogue by signature
+      operationId: readCatalogueBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: signature of the requested catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Catalogues
+      summary: Create or Update a catalogue by signature
+      description: Create or Update a catalogue by signature
+      operationId: createOrUpdateCatalogueBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: signature of the created or updated catalogue
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Catalogue'
+        required: true
+      responses:
+        "200":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Catalogue response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /dataservices:
+    post:
+      tags:
+      - DataServices
+      summary: Create a data service
+      description: Create a data service
+      operationId: createDataService
+      parameters:
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataService'
+        required: true
+      responses:
+        "201":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /dataservices/{id}:
+    get:
+      tags:
+      - DataServices
+      summary: Get a data service
+      description: Get a data service
+      operationId: readDataService
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested data service
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - DataServices
+      summary: Create or Update a data service
+      description: Create or Update a data service
+      operationId: createOrUpdateDataService
+      parameters:
+      - name: id
+        in: path
+        description: Id of the created or updated data service
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataService'
+        required: true
+      responses:
+        "200":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - DataServices
+      summary: Delete a data service
+      description: Delete a data service
+      operationId: deleteDataService
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested data service
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - DataServices
+      summary: Modify a data service
+      description: Modify a data service
+      operationId: modifyDataService
+      parameters:
+      - name: id
+        in: path
+        description: Id of the modified data service
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataService'
+        required: true
+      responses:
+        "200":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /dataservices/{signature}:
+    get:
+      tags:
+      - DataServices
+      summary: Get a data service by signature
+      description: Get a data service by signature
+      operationId: readDataServiceBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: signature of the requested data service
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - DataServices
+      summary: Create or Update a data service by signature
+      description: Create or Update a data service by signature
+      operationId: createOrUpdateDataServiceBySignature
+      parameters:
+      - name: signature
+        in: path
+        description: signature of the created or updated data service
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataService'
+        required: true
+      responses:
+        "200":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: DataService response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /vocabularies:
+    get:
+      tags:
+      - Vocabularies
+      summary: Get list of indexed vocabularies
+      description: Get vocabularies
+      operationId: readVocabularies
+      responses:
+        "200":
+          description: Vocabulary response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+  /vocabularies/{vocabulary}:
+    get:
+      tags:
+      - Vocabularies
+      summary: Get a vocabulary
+      description: Get a vocabulary
+      operationId: readVocabulary
+      parameters:
+      - name: vocabulary
+        in: path
+        description: Id of the requested vocabulary
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Vocabulary response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Vocabularies
+      summary: Create or Update a vocabulary
+      description: Create or Update a vocabulary
+      operationId: createOrUpdateVocabulary
+      parameters:
+      - name: vocabulary
+        in: path
+        description: Id of the created or upated vocabulary
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vocabulary'
+        required: true
+      responses:
+        "200":
+          description: Vocabulary response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "201":
+          description: Vocabulary response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /vocabularies/{vocabulary}/:
+    post:
+      tags:
+      - Vocabularies
+      summary: Create a vocable
+      description: Create a vocable
+      operationId: createVocable
+      parameters:
+      - name: vocabulary
+        in: path
+        description: Vocabulary of the created vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vocable'
+        required: true
+      responses:
+        "201":
+          description: Vocabulary response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+  /vocabularies/{vocabulary}/{id}:
+    get:
+      tags:
+      - Vocabularies
+      summary: Get a vocable
+      description: Get a vocable
+      operationId: readVocable
+      parameters:
+      - name: vocabulary
+        in: path
+        description: Vocabulary of the requested vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Id of the requested vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Vocabulary response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_6'
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+    put:
+      tags:
+      - Vocabularies
+      summary: Create or Update a vocable
+      description: Create or Update a vocable
+      operationId: createOrUpdateVocable
+      parameters:
+      - name: vocabulary
+        in: path
+        description: Vocabulary of the created or upated vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Id of the created or updated Vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vocable'
+        required: true
+      responses:
+        "200":
+          description: Vocabulary response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "201":
+          description: Vocabulary response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    delete:
+      tags:
+      - Vocabularies
+      summary: Delete a vocable
+      description: Delete a vocable
+      operationId: deleteVocable
+      parameters:
+      - name: vocabulary
+        in: path
+        description: Vocabulary of the deleted vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Id of the deleted vocabulary
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Vocabulary response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+    patch:
+      tags:
+      - Vocabularies
+      summary: Modify a vocable
+      description: Modify a vocable
+      operationId: modifyVocable
+      parameters:
+      - name: vocabulary
+        in: path
+        description: Vocabulary of the modified vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Id of the modified vocable
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: synchronous
+        in: query
+        description: If disbled the execution is asynchronous (response code 202)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vocable'
+        required: true
+      responses:
+        "200":
+          description: Vocabulary response object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "202":
+          description: Accepted
+        "400":
+          description: Validation error / Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      security:
+      - ApiKeyAuth: []
+components:
+  schemas:
+    DatasetArray:
+      required:
+      - datasets
+      type: object
+      properties:
+        datasets:
+          maxItems: 125
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+      description: A array of datasets
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        signature:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        catalog:
+          $ref: '#/components/schemas/Dataset_catalog'
+        catalog_record:
+          $ref: '#/components/schemas/Dataset_catalog_record'
+        accrual_periodicity:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        contact_point:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_contact_point'
+        creator:
+          $ref: '#/components/schemas/Dataset_creator'
+        distributions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Distribution'
+        keywords:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_keywords'
+        publisher:
+          $ref: '#/components/schemas/Dataset_creator'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_categories'
+        access_right:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        conforms_to:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        has_version:
+          type: array
+          items:
+            type: string
+        identifier:
+          type: array
+          items:
+            type: string
+        is_version_of:
+          type: array
+          items:
+            type: string
+        landing_page:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_landing_page'
+        page:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_landing_page'
+        language:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_categories'
+        provenance:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        issued:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        modified:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        source:
+          type: array
+          items:
+            type: string
+        spatial:
+          type: array
+          items:
+            type: object
+        spatial_resource:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_categories'
+        temporal:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_temporal'
+        version_notes:
+          type: object
+          additionalProperties:
+            type: string
+        version_info:
+          type: string
+        country:
+          $ref: '#/components/schemas/Dataset_categories'
+        translation_meta:
+          $ref: '#/components/schemas/Dataset_translation_meta'
+        quality_meas:
+          $ref: '#/components/schemas/Dataset_quality_meas'
+        legal_base:
+          $ref: '#/components/schemas/Dataset_legal_base'
+        geocoding_description:
+          $ref: '#/components/schemas/Dataset_legal_base'
+        type:
+          $ref: '#/components/schemas/Dataset_categories'
+        deadline:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        temporal_resolution:
+          type: array
+          items:
+            type: string
+        spatial_resolution_in_meters:
+          type: array
+          items:
+            type: integer
+        relation:
+          type: array
+          items:
+            type: string
+        was_generated_by:
+          type: array
+          items:
+            type: string
+        is_referenced_by:
+          type: array
+          items:
+            type: string
+        sample:
+          type: array
+          items:
+            type: string
+        qualified_attribution:
+          type: array
+          items:
+            type: string
+        adms_identifier:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_adms_identifier'
+        subject:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        qualified_relation:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_qualified_relation'
+        attribute:
+          type: array
+          items:
+            type: string
+        dimension:
+          type: array
+          items:
+            type: string
+        num_series:
+          type: integer
+        has_quality_annotation:
+          type: array
+          items:
+            type: string
+        stat_unit_measure:
+          type: array
+          items:
+            type: string
+      description: A representation of a dataset
+    Catalogue:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        signature:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        license:
+          $ref: '#/components/schemas/Catalogue_license'
+        publisher:
+          $ref: '#/components/schemas/Dataset_creator'
+        language:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_categories'
+        country:
+          $ref: '#/components/schemas/Dataset_categories'
+        homepage:
+          type: string
+        issued:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        modified:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        spatial:
+          type: array
+          items:
+            type: object
+        spatial_resource:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_categories'
+        theme_taxonomy:
+          type: array
+          items:
+            type: string
+        catalog:
+          type: array
+          items:
+            type: string
+        has_part:
+          type: array
+          items:
+            type: string
+        is_part_of:
+          type: string
+        creator:
+          $ref: '#/components/schemas/Dataset_creator'
+        rights:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+      description: A representation of a catalogue
+    Distribution:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        signature:
+          type: string
+        resource:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        access_url:
+          type: array
+          items:
+            type: string
+        download_url:
+          type: array
+          items:
+            type: string
+        format:
+          $ref: '#/components/schemas/Dataset_categories'
+        license:
+          $ref: '#/components/schemas/Catalogue_license'
+        byte_size:
+          type: integer
+        checksum:
+          $ref: '#/components/schemas/Distribution_checksum'
+        language:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_categories'
+        media_type:
+          type: string
+        issued:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        modified:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        rights:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        status:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        page:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_landing_page'
+        conforms_to:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        availability:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        temporal_resolution:
+          type: array
+          items:
+            type: string
+        spatial_resolution_in_meters:
+          type: array
+          items:
+            type: integer
+        access_service:
+          type: array
+          items:
+            $ref: '#/components/schemas/Distribution_access_service'
+        compress_format:
+          type: string
+        package_format:
+          type: string
+        has_policy:
+          type: string
+        type:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        extended_metadata:
+          $ref: '#/components/schemas/Distribution_extended_metadata'
+    DataService:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        signature:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataService_datasets'
+        endpoint_url:
+          type: array
+          items:
+            type: string
+        endpoint_description:
+          type: array
+          items:
+            type: string
+        access_right:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        license:
+          $ref: '#/components/schemas/Catalogue_license'
+        translation_meta:
+          $ref: '#/components/schemas/Dataset_translation_meta'
+      description: A representation of a data service
+    Resource:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        signature:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        access_right:
+          $ref: '#/components/schemas/Dataset_accrual_periodicity'
+        license:
+          $ref: '#/components/schemas/Catalogue_license'
+        translation_meta:
+          $ref: '#/components/schemas/Dataset_translation_meta'
+      description: A representation of a ressource
+    Vocabulary:
+      required:
+      - vocab
+      type: object
+      properties:
+        vocab:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vocable'
+      description: A representation of a Vocabulary
+    Vocable:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        resource:
+          type: string
+      description: A representation of a vocable
+    Date:
+      type: string
+      format: date
+    DateTime:
+      type: string
+      format: date-time
+    inline_response_201:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        result:
+          $ref: '#/components/schemas/DataService_datasets'
+    inline_response_400:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: false
+        message:
+          type: string
+    inline_response_200:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        result:
+          $ref: '#/components/schemas/DataService'
+    inline_response_200_1:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        result:
+          $ref: '#/components/schemas/Resource'
+    inline_response_200_2:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        result:
+          $ref: '#/components/schemas/Dataset'
+    inline_response_200_3:
+      type: object
+      properties:
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_3_datasets'
+    inline_response_200_4:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        result:
+          $ref: '#/components/schemas/Distribution'
+    inline_response_200_5:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        result:
+          $ref: '#/components/schemas/Catalogue'
+    inline_response_200_6:
+      type: object
+      properties:
+        success:
+          type: boolean
+          default: true
+        result:
+          $ref: '#/components/schemas/Vocable'
+    Dataset_catalog:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+      example: null
+    Dataset_catalog_record:
+      type: object
+      properties:
+        issued:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        modified:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+      example: null
+    Dataset_accrual_periodicity:
+      type: object
+      properties:
+        label:
+          type: string
+        resource:
+          type: string
+      example: null
+    Dataset_contact_point:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        telephone:
+          type: string
+        url:
+          type: array
+          items:
+            type: string
+        oranisation_name:
+          type: string
+        resource:
+          type: string
+      example: null
+    Dataset_creator:
+      type: object
+      properties:
+        type:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        resource:
+          type: string
+        homepage:
+          type: string
+      example: null
+    Dataset_keywords:
+      type: object
+      properties:
+        label:
+          type: string
+        language:
+          type: string
+        resource:
+          type: string
+      example: null
+    Dataset_categories:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        resource:
+          type: string
+      example: null
+    Dataset_landing_page:
+      type: object
+      properties:
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        format:
+          $ref: '#/components/schemas/Dataset_categories'
+        resource:
+          type: string
+      example: null
+    Dataset_temporal:
+      type: object
+      properties:
+        lte:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        gte:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+      example: null
+    Dataset_translation_meta_details:
+      type: object
+      properties:
+        machine_translated:
+          type: boolean
+        original_language:
+          type: string
+        issued:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+        received:
+          oneOf:
+          - $ref: '#/components/schemas/Date'
+      example: null
+    Dataset_translation_meta:
+      type: object
+      properties:
+        full_available_languages:
+          type: array
+          items:
+            type: string
+        details:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Dataset_translation_meta_details'
+        status:
+          type: string
+      example: null
+    Dataset_quality_meas:
+      type: object
+      properties:
+        scoring:
+          type: integer
+      example: null
+    Dataset_legal_base:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+      example: null
+    Dataset_adms_identifier:
+      type: object
+      properties:
+        identifier:
+          type: string
+        scheme:
+          type: string
+        resource:
+          type: string
+      example: null
+    Dataset_qualified_relation:
+      type: object
+      properties:
+        relation:
+          type: array
+          items:
+            type: string
+        had_role:
+          type: array
+          items:
+            type: string
+      example: null
+    Catalogue_license:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        description:
+          type: string
+        resource:
+          type: string
+        la_url:
+          type: string
+      example: null
+    Distribution_checksum:
+      type: object
+      properties:
+        algorithm:
+          type: string
+        checksum_value:
+          type: string
+      example: null
+    Distribution_access_service:
+      type: object
+      properties:
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        endpoint_url:
+          type: array
+          items:
+            type: string
+      example: null
+    Distribution_extended_metadata:
+      type: object
+      properties:
+        is_used_by:
+          type: array
+          items:
+            type: string
+      example: null
+    DataService_datasets:
+      type: object
+      properties:
+        id:
+          type: string
+      example: null
+    inline_response_200_3_datasets:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status:
+          type: integer
+        message:
+          type: string
+        id:
+          type: string
+      example: null
+  responses:
+    DatasetSuccess:
+      description: Dataset response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_2'
+    DatasetSuccessId:
+      description: Dataset response ID
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    DatasetSuccessBulk:
+      description: Dataset response bulk
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_3'
+    CatalogueSuccess:
+      description: Catalogue response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_5'
+    CatalogueSuccessId:
+      description: Catalogue response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    CatalogueSuccessBulk:
+      description: Catalogue response bulk
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              datasets:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    status:
+                      type: integer
+                    message:
+                      type: string
+                    id:
+                      type: string
+    DataServiceSuccess:
+      description: DataService response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200'
+    DataServiceSuccessId:
+      description: DataService response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    ResourceSuccess:
+      description: Resource response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_1'
+    ResourceSuccessId:
+      description: Resource response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    VocabularySuccess:
+      description: Vocabulary response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_3'
+    VocableSuccess:
+      description: Vocabulary response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_6'
+    VocableSuccessId:
+      description: Vocabulary response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    DistributionSuccess:
+      description: Distribution response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_4'
+    DistributionSuccessId:
+      description: Distribution response object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    QuerySuccess:
+      description: The query was successfully processed
+      content:
+        application/json:
+          schema:
+            type: object
+    BadRequest:
+      description: Validation error / Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
