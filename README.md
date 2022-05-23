@@ -1,2 +1,2 @@
 # Spécification OpenAPI
-Spécification d'une architecture orientée service avec OpenAPI ( format YAML )
+Spécification d'une architecture orientée service (SOA) avec OpenAPI ( format YAML )
